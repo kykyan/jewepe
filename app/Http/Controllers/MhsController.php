@@ -81,7 +81,7 @@ class MhsController extends Controller
             }
             DB::table('pilmatkuls')->insert($krs);
         }
-        return redirect(route('biodata'))->with('status','Data Berhasil Diubah!');
+        return redirect(route('krssaya'))->with('status','Pengisian KRS Sukses!');
     }
 
     public function krssaya()
