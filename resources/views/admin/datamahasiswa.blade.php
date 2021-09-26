@@ -59,7 +59,10 @@
               <td>{{ $u->gender }}</td>
               <td>{{ $u->birthplace }}</td>
               <td>{{ $u->birthdate }}</td>
-              <td><a href="{{ route('showmahasiswa', $u->id) }}" class="badge badge-info">Detail</a></td>
+              <td>
+                <a href="{{ route('showmahasiswa', $u->id) }}" class="badge badge-info">Detail</a>
+                <a href="{{ route('showkrsmahasiswa', $u->id) }}" class="badge badge-info">KRS</a>
+              </td>
             </tr>
             @endforeach
           </tbody>

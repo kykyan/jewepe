@@ -15,9 +15,10 @@ class CreatePilmatkulsTable extends Migration
     {
         Schema::create('pilmatkuls', function (Blueprint $table) {
             $table->id();
-            $table->text('pilihan');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('matkul_id');
+            $table->foreign('matkul_id')->references('id')->on('matkuls')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

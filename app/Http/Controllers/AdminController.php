@@ -31,7 +31,7 @@ class AdminController extends Controller
         $mahasiswa->npm = $request->npm;
         $mahasiswa->name = ucwords($request->name);
         $mahasiswa->email = $request->email;
-        $mahasiswa->password = bcrypt($request->npm);
+        $mahasiswa->password = bcrypt($request->password);
         $mahasiswa->gender = $request->gender;
         $mahasiswa->birthplace = ucwords($request->birthplace);
         $mahasiswa->birthdate = $request->birthdate;
@@ -53,6 +53,16 @@ class AdminController extends Controller
         return view('admin.showmahasiswa', compact('user'));
     }
 
+    public function showkrsmahasiswa($id)
+    {
+        $krs = DB::table('pilmatkuls')
+            ->join('matkuls', 'matkuls.id', '=', 'pilmatkuls.matkul_id')
+            ->where('user_id', $id)
+            ->orderBy('smst_matkul')
+            ->get();
+        return view('admin.krsmahasiswa', compact('krs'));
+    }
+
     public function editmahasiswa(User $user)
     {
         return view('admin.editmahasiswa', compact('user'));
@@ -69,6 +79,15 @@ class AdminController extends Controller
             'birthplace' => ucwords($request->birthplace),
             'birthdate' => $request->birthdate,
             'smst_mhs' => $request->smst_mhs
+        ]);
+        return redirect(route('datamahasiswa'))->with('status','Data Berhasil Diubah!');
+    }
+
+    public function resetpwmahasiswa(Request $request, $id)
+    {
+        User::where('id', $id)
+        ->update([
+            'password' => bcrypt($request->password)
         ]);
         return redirect(route('datamahasiswa'))->with('status','Data Berhasil Diubah!');
     }
@@ -97,7 +116,7 @@ class AdminController extends Controller
     public function storematkul(Request $request)
     {
         $mahasiswa = new Matkul;
-        $mahasiswa->kd_matkul = $request->kd_matkul;
+        $mahasiswa->kd_matkul = strtoupper($request->kd_matkul);
         $mahasiswa->name = ucwords($request->name);
         $mahasiswa->sks = $request->sks;
         $mahasiswa->smst_matkul = $request->smst_matkul;

@@ -1,6 +1,6 @@
-@extends('admin.master')
+@extends('mhs.master')
 
-@section('title', 'Data Mahasiswa')
+@section('title', 'Biodata')
 
 @section('content')
   
@@ -10,7 +10,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Mahasiswa</h1>
+            <h1>Biodata Saya</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -22,7 +22,12 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-body">
-            <form method="POST" action="{{ route('updatemahasiswa', $user->id) }}" class="mb-3">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+            <form method="POST" action="{{ route('updatebiodata') }}" class="mb-3">
                 @method('patch')
                 @csrf
                 <div class="form-row">
@@ -110,7 +115,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('resetpwmahasiswa', $user->id) }}" class="mb-3">
+            <form method="POST" action="{{ route('resetpwbiodata') }}" class="mb-3">
                 @method('patch')
                 @csrf
                 <div class="form-row">
